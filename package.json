@@ -1,6 +1,6 @@
 {
   "name": "jsman",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JavaScript Map alternative notation",
   "author": "Artem Varshavin",
   "license": "MIT",
@@ -22,7 +22,6 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "babel-plugin-add-module-exports": "^1.0.4",
     "cross-env": "^7.0.2",
@@ -42,7 +41,6 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.1",
     "core-js": "^3.6.5"
   }
 }
