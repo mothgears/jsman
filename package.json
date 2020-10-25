@@ -1,6 +1,6 @@
 {
   "name": "jsman",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "JavaScript Map alternative notation",
   "author": "Artem Varshavin",
   "license": "MIT",
@@ -9,11 +9,10 @@
     "array",
     "notation"
   ],
-  "main": "lib/index.js",
+  "main": "jsman.lib.js",
   "scripts": {
     "test": "cross-env NODE_ENV=development node --experimental-modules --experimental-json-modules node_modules/jest/bin/jest.js",
-    "build": "cross-env NODE_ENV=production babel src/index.mjs --out-dir lib",
-    "build-test": "cross-env NODE_ENV=production jest"
+    "build": "cross-env NODE_ENV=production babel --config-file ./modern.babelrc.json src/index.mjs -o jsman.lib.mjs && babel --config-file ./legacy.babelrc.json src/index.mjs -o jsman.lib.js && jest"
   },
   "repository": {
     "type": "git",

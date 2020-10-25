@@ -1,4 +1,4 @@
-const $$ = process.env.NODE_ENV === 'development' ? require('../src/index.mjs').default : require('../lib/index.js');
+const $$ = process.env.NODE_ENV === 'development' ? require('../src/index.mjs').default : require('../jsman.lib.js');
 
 const f = ()=>'keyMethod';
 const f2 = ()=>'key2Method';

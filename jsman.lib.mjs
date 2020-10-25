@@ -1,7 +1,5 @@
 "use strict";
 
-require("core-js/modules/es.symbol.description");
-
 require("core-js/modules/esnext.map.delete-all");
 
 require("core-js/modules/esnext.map.every");
@@ -34,7 +32,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-const SAVE_DATA = Symbol();
 const targets = {
   ARRAY: Symbol(),
   MAP: Symbol(),
