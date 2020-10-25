@@ -2,7 +2,7 @@
 
 JavaScript Map alternative notation
 
-A simpler and more readable format for creating a maps or map-style arrays.
+A simpler and more readable format for creating a Map, weakMap or map-style array.
 
 ####Creating a map using JSMAN VS creating a map using arrays
 ```
@@ -74,3 +74,12 @@ const arrClassic = [
 ];
 ```
 
+####Docs
+```
+const $$ = require('jsman')
+
+$$(/*Some object*/)              //Return a temporary pointer to an object
+$$.mapFrom(/*jsman object*/)     //Create Map from jsman
+$$.weakMapFrom(/*jsman object*/) //Create WeakMap from jsman
+$$.arrayFrom(/*jsman object*/)   //Create Array from jsman
+```

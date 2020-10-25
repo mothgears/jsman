@@ -1,19 +1,20 @@
-const CONTINUE_IDX = Symbol();
-const TO_MAP       = Symbol();
+const targets = {
+	ARRAY    : Symbol(),
+	MAP      : Symbol(),
+	WEAK_MAP : Symbol(),
+};
 
-let
-	_index = 0,
-	_data = {};
+let _data = {};
 
 function $$ (object) {
-	let key = 'JSMAN_' + _index++;
+	let key = Symbol();
 	_data[key] = object;
 	return key;
 }
 
-function parse (jsman, toMap = null, continueIndex = null) {
+function parse (jsman, target) {
 	let mapSrc = [];
-	for (let key of Object.keys(jsman)) {
+	for (let key of Reflect.ownKeys(jsman)) {
 		let content = jsman[key];
 		let originalKey = key;
 
@@ -21,19 +22,20 @@ function parse (jsman, toMap = null, continueIndex = null) {
 			originalKey = _data[key];
 			delete _data[key];
 			if (typeof content === 'object' && !Array.isArray(content)) {
-				content = parse(content, toMap, CONTINUE_IDX);
+				content = parse(content, target);
 			}
 		}
 
 		mapSrc.push([originalKey, content]);
 	}
 
-	if (continueIndex !== CONTINUE_IDX) _index = 0;
-
-	return (toMap === TO_MAP)?new Map(mapSrc):mapSrc;
+	if (target === targets.ARRAY)    return mapSrc;
+	if (target === targets.MAP)      return new Map(mapSrc);
+	if (target === targets.WEAK_MAP) return new WeakMap(mapSrc);
 }
 
-$$.arrayFrom = jsman => parse(jsman);
-$$.mapFrom   = jsman => parse(jsman, TO_MAP);
+$$.arrayFrom   = jsman => parse(jsman, targets.ARRAY);
+$$.mapFrom     = jsman => parse(jsman, targets.MAP);
+$$.weakMapFrom = jsman => parse(jsman, targets.WEAK_MAP);
 
 export default $$;
