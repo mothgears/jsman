@@ -82,28 +82,38 @@ function $$(object) {
   return key;
 }
 
-function parse(jsman, target) {
-  var mapSrc = [];
+function parse(srcObj, target) {
+  var detectChange = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var asArr = [];
+  var isChanged = false;
+  var isJsman = false;
 
-  var _iterator = _createForOfIteratorHelper(Reflect.ownKeys(jsman)),
+  var _iterator = _createForOfIteratorHelper(Reflect.ownKeys(srcObj)),
       _step;
 
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var key = _step.value;
-      var content = jsman[key];
+      var content = srcObj[key];
       var originalKey = key;
 
-      if (_data[key] !== undefined) {
+      if (_typeof(key) === 'symbol' && _data[key] !== undefined) {
+        isJsman = true;
         originalKey = _data[key];
         delete _data[key];
+      }
 
-        if (_typeof(content) === 'object' && !Array.isArray(content)) {
-          content = parse(content, target);
+      if (content && _typeof(content) === 'object' && (content.constructor || {}).name === 'Object') {
+        var parsedContent = parse(content, target, true);
+
+        if (parsedContent) {
+          isChanged = true;
+          content = parsedContent;
+          srcObj[key] = content;
         }
       }
 
-      mapSrc.push([originalKey, content]);
+      asArr.push([originalKey, content]);
     }
   } catch (err) {
     _iterator.e(err);
@@ -111,9 +121,14 @@ function parse(jsman, target) {
     _iterator.f();
   }
 
-  if (target === targets.ARRAY) return mapSrc;
-  if (target === targets.MAP) return new Map(mapSrc);
-  if (target === targets.WEAK_MAP) return new WeakMap(mapSrc);
+  if (isJsman) {
+    if (target === targets.ARRAY) return asArr;
+    if (target === targets.MAP) return new Map(asArr);
+    if (target === targets.WEAK_MAP) return new WeakMap(asArr);
+  } else {
+    if (isChanged || !detectChange) return srcObj;
+    return null;
+  }
 }
 
 $$.arrayFrom = function (jsman) {

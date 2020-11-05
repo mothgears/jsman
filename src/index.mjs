@@ -12,26 +12,43 @@ function $$ (object) {
 	return key;
 }
 
-function parse (jsman, target) {
-	let mapSrc = [];
-	for (let key of Reflect.ownKeys(jsman)) {
-		let content = jsman[key];
+function parse (srcObj, target, detectChange = false) {
+	let asArr = [];
+	let isChanged = false;
+	let isJsman = false;
+	for (let key of Reflect.ownKeys(srcObj)) {
+		let content = srcObj[key];
 		let originalKey = key;
 
-		if (_data[key] !== undefined) {
+		if (typeof key === 'symbol' && _data[key] !== undefined) {
+			isJsman = true;
 			originalKey = _data[key];
 			delete _data[key];
-			if (typeof content === 'object' && !Array.isArray(content)) {
-				content = parse(content, target);
+		}
+
+		if (content &&
+			typeof content === 'object' &&
+			(content.constructor||{}).name === 'Object'
+		) {
+			let parsedContent = parse(content, target, true);
+			if (parsedContent) {
+				isChanged = true;
+				content = parsedContent;
+				srcObj[key] = content;
 			}
 		}
 
-		mapSrc.push([originalKey, content]);
+		asArr.push([originalKey, content]);
 	}
 
-	if (target === targets.ARRAY)    return mapSrc;
-	if (target === targets.MAP)      return new Map(mapSrc);
-	if (target === targets.WEAK_MAP) return new WeakMap(mapSrc);
+	if (isJsman) {
+		if (target === targets.ARRAY)    return asArr;
+		if (target === targets.MAP)      return new Map(asArr);
+		if (target === targets.WEAK_MAP) return new WeakMap(asArr);
+	} else {
+		if (isChanged || !detectChange) return srcObj;
+		return null;
+	}
 }
 
 $$.arrayFrom   = jsman => parse(jsman, targets.ARRAY);
