@@ -6,80 +6,53 @@ A simpler and more readable format for creating a Map, weakMap or map-style arra
 
 ####Creating a map using JSMAN VS creating a map using arrays
 ```
-const $$ = require('jsman')
+import $$, { mapFrom } from 'jsman'
+
+const method1 = ()=>'keyMethod';
+const method2 = ()=>'key2Method;
+const object1 = { objKey: 'keyValue' };
+const object2 = { objKey2: 'key2Value' };
+const array1  = ['keyArrA', 'keyArrB'];
+const array2  = ['key2ArrA', 'key2ArrB'];
 
 //Using JSMAN
-const map = $$.mapFrom({
-    [$$(()=>'keyMethod')]: {
-        [$$(()=>'key2Method')]: 'some value 1',
+const map = mapFrom({
+    [$$(method1)]: {
+        [$$(method2)]: 'some value 1',
 
-        [$$({ objKey: 'keyValue' })]: {
-            [$$({ objKey2: 'key2Value' })]: 'some value 2',
+        [$$(object1)]: {
+            [$$(object2)]: 'some value 2',
         },
 
-        [$$(['keyArrA', 'keyArrB'])]: {
-            [$$(['key2ArrA', 'key2ArrB'])]: 'some value 3',
+        [$$(array1)]: {
+            [$$(array2)]: 'some value 3',
         },
     }
 }); 
 
 //Using array
 const mapClassic = new Map([
-    [()=>'keyMethod', new Map([
-        [()=>'key2Method', 'some value 1'],
+    [method1, new Map([
+        [method2, 'some value 1'],
 
-        [{ objKey: 'keyValue' }, new Map([
-            [{ objKey2: 'key2Value' }, 'some value 2'],
+        [object1, new Map([
+            [object2, 'some value 2'],
         ])],
 
-        [['keyArrA', 'keyArrB'], new Map([
-            [['key2ArrA', 'key2ArrB'], 'some value 3'],
+        [array1, new Map([
+            [array2, 'some value 3'],
         ])],
     ])]
 ]);
 ```
 
-####Creating a map-style array using JSMAN VS creating a map-style array using arrays
-```
-const $$ = require('jsman')
-
-//Using JSMAN
-const arr = $$.arrayFrom({
-    [$$(()=>'keyMethod')]: {
-        [$$(()=>'key2Method')]: 'some value 1',
-
-        [$$({ objKey: 'keyValue' })]: {
-            [$$({ objKey2: 'key2Value' })]: 'some value 2',
-        },
-
-        [$$(['keyArrA', 'keyArrB'])]: {
-            [$$(['key2ArrA', 'key2ArrB'])]: 'some value 3',
-        },
-    },
-});
-
-//Using arrays
-const arrClassic = [
-    [()=>'keyMethod', [
-        [()=>'key2Method', 'some value 1'],
-
-        [{ objKey: 'keyValue' }, [
-            [{ objKey2: 'key2Value' }, 'some value 2'],
-        ]],
-
-        [['keyArrA', 'keyArrB'], [
-            [['key2ArrA', 'key2ArrB'], 'some value 3'],
-        ]],
-    ]],
-];
-```
-
 ####Docs
 ```
-const $$ = require('jsman')
+$$(/*Some object*/)           //Return a temporary pointer to an object
 
-$$(/*Some object*/)              //Return a temporary pointer to an object
-$$.mapFrom(/*jsman object*/)     //Create Map from jsman
-$$.weakMapFrom(/*jsman object*/) //Create WeakMap from jsman
-$$.arrayFrom(/*jsman object*/)   //Create Array from jsman
+mapFrom(/*jsman object*/)     //Create Map from jsman
+
+weakMapFrom(/*jsman object*/) //Create WeakMap from jsman
+
+arrayFrom(/*jsman object*/)   //Create Array from jsman
 ```

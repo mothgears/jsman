@@ -2,7 +2,6 @@
 .gitignore
 .npmignore
 /node_modules
-/tests
-/src
 yarn-error.log
 yarn.lock
+jsman.test.mjs
