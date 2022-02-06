@@ -4,7 +4,7 @@ JavaScript Map alternative notation
 
 A simpler and more readable format for creating a Map, weakMap or map-style array.
 
-####Creating a map using JSMAN VS creating a map using arrays
+#### Creating a map using JSMAN VS creating a map using arrays
 ```
 import $$, { mapFrom } from 'jsman'
 
@@ -46,7 +46,7 @@ const mapClassic = new Map([
 ]);
 ```
 
-####Docs
+#### Docs
 ```
 $$(/*Some object*/)           //Return a temporary pointer to an object
 
