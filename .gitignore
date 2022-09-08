@@ -7,4 +7,5 @@ Icon?
 node_modules/
 .idea
 yarn-error.log
-jsman.lib.js
+lib.cjs
+lib.mjs

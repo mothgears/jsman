@@ -5,5 +5,5 @@
 yarn-error.log
 yarn.lock
 /tests
-jest.config.mjs
-.babelrc
+*.config.mjs
+*.config.json

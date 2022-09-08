@@ -1,4 +1,4 @@
-import $$, { mapFrom, weakMapFrom, arrayFrom } from '../jsman.lib.mjs';
+import $$, { mapFrom, weakMapFrom, arrayFrom } from '../lib.es6';
 
 const f = ()=>'keyMethod';
 const f2 = ()=>'key2Method';

@@ -1,11 +1,11 @@
 export default {
 	testEnvironment: 'jsdom',
-	moduleFileExtensions: ['js', 'mjs'],
+	moduleFileExtensions: ['js', 'mjs', 'cjs', 'es6'],
 	testMatch: [
-		"**/*.test.js",
-		"**/*.test.mjs",
+		"**/*test.js",
+		"**/*test.es6",
 	],
 	transform: {
-		'\\.js$': 'babel-jest',
+		'\\.(js|es6)$': 'babel-jest',
 	},
 }

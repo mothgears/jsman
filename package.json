@@ -1,6 +1,6 @@
 {
   "name": "jsman",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "JavaScript Map alternative notation",
   "author": "Artem Varshavin",
   "license": "MIT",
@@ -9,11 +9,18 @@
     "array",
     "notation"
   ],
-  "browser": "jsman.lib.js",
-  "main": "jsman.lib.mjs",
+  "browser": "lib.cjs",
+  "main": "lib.es6",
+  "exports": {
+    "browser": {
+      "import": "./lib.mjs",
+      "require": "./lib.cjs"
+    },
+    "node": "./lib.es6"
+  },
   "scripts": {
-    "prepublishOnly": "babel jsman.lib.mjs -o jsman.lib.js",
-    "build": "babel jsman.lib.mjs -o jsman.lib.js",
+    "prepublishOnly": "babel lib.es6 -o lib.cjs | babel lib.es6 --config-file ./esm-babel.config.json -o lib.mjs",
+    "build": "babel lib.es6 -o lib.cjs | babel lib.es6 --config-file ./esm-babel.config.json -o lib.mjs",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
