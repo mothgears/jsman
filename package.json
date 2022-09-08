@@ -1,6 +1,6 @@
 {
   "name": "jsman",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "JavaScript Map alternative notation",
   "author": "Artem Varshavin",
   "license": "MIT",
@@ -14,33 +14,21 @@
   "scripts": {
     "prepublishOnly": "babel jsman.lib.mjs -o jsman.lib.js",
     "build": "babel jsman.lib.mjs -o jsman.lib.js",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mothgears/jsman.git"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.8",
-    "@babel/core": "^7.16.10",
-    "@babel/preset-env": "^7.16.10",
-    "cross-env": "^7.0.3",
-    "jest": "^27.4.7",
-    "jest-esm-transformer": "^1.0.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "mjs"
-    ],
-    "testMatch": [
-      "**/*.test.(js|mjs)"
-    ],
-    "transform": {
-      ".mjs": "jest-esm-transformer"
-    }
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.0",
+    "@babel/preset-env": "^7.19.0",
+    "babel-jest": "^29.0.2",
+    "jest": "^29.0.2",
+    "jest-environment-jsdom": "^29.0.2"
   },
   "dependencies": {
-    "core-js": "^3.6.5"
+    "core-js": "^3.25.1"
   }
 }

@@ -4,4 +4,6 @@
 /node_modules
 yarn-error.log
 yarn.lock
-jsman.test.mjs
+/tests
+jest.config.mjs
+.babelrc
