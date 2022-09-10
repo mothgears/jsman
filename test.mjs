@@ -1,4 +1,4 @@
-import $$, { mapFrom, weakMapFrom, arrayFrom } from '../lib.cjs';
+import $$, { mapFrom, weakMapFrom, arrayFrom } from './lib.mjs';
 
 const f = ()=>'keyMethod';
 const f2 = ()=>'key2Method';

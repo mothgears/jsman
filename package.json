@@ -1,6 +1,6 @@
 {
   "name": "jsman",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "JavaScript Map alternative notation",
   "author": "Artem Varshavin",
   "license": "MIT",
@@ -9,18 +9,18 @@
     "array",
     "notation"
   ],
-  "browser": "lib.cjs",
-  "main": "lib.es6",
+  "browser": "lib.browser.cjs",
+  "main": "lib.mjs",
   "exports": {
     "browser": {
-      "import": "./lib.mjs",
-      "require": "./lib.cjs"
+      "import": "./lib.browser.mjs",
+      "require": "./lib.browser.cjs"
     },
-    "node": "./lib.es6"
+    "node": "./lib.mjs"
   },
   "scripts": {
-    "prepublishOnly": "babel lib.es6 -o lib.cjs | babel lib.es6 --config-file ./esm-babel.config.json -o lib.mjs",
-    "build": "babel lib.es6 -o lib.cjs | babel lib.es6 --config-file ./esm-babel.config.json -o lib.mjs",
+    "prepublishOnly": "babel lib.mjs -o lib.browser.cjs && babel lib.mjs --config-file ./esm-babel.config.json -o lib.browser.mjs",
+    "transpile": "babel lib.mjs -o lib.browser.cjs && babel lib.mjs --config-file ./esm-babel.config.json -o lib.browser.mjs",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
@@ -31,7 +31,6 @@
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.19.0",
     "@babel/preset-env": "^7.19.0",
-    "babel-jest": "^29.0.2",
     "jest": "^29.0.2",
     "jest-environment-jsdom": "^29.0.2"
   },
